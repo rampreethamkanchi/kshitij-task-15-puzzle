@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeaderBoard</title>
+    <style>
+        body{
+            text-align: center;
+        }
+        #div{
+            background-color: bisque;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-weight: bolder;
+        }
+        #header{
+            background-color: bisque;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-weight: bolder;
+        }
+    </style>
+</head>
+<body>
+    <div id="div">
+ <h1 id="header">LeaderBoard</h1>
+    </div>
+    <script>
+        const div = document.getElementById("div");
+        let time=0;
+        let p=0;
+        let node =0;
+        let min=999;
+        let minIndex =0;
+        let arr = [1,1];
+        let newArr =[1,1];
+        let t=0;
+        arr.pop();
+        newArr.pop();
+        arr.pop();
+        newArr.pop();
+        // console.log(localStorage.getItem(1));
+        for(i=0;i<localStorage.length;i++){
+            arr.push(Number(localStorage.getItem(`${i+1}`)));
+        }
+        // console.log(localStorage.getItem(1));
+
+        for(j=0;j<localStorage.length;j++){
+        for(i=0;i<localStorage.length-j;i++){
+            if(min>=Number(arr[i])){
+                min=Number(arr[i]);
+                minIndex=i;
+            }
+        }
+        newArr.push(min);
+        arr.splice(minIndex,1);
+        min=9999;
+        minIndex=0;
+    }
+    // console.log(localStorage.getItem(1));
+    // console.log(newArr.length);
+    // console.log(localStorage.length);
+        
+        for(i=0;i< newArr.length;i++){
+        time=newArr[i];
+         p=document.createElement("p");
+         p.textContent=`${time}`;
+         div.appendChild(p);
+        }
+        for(i=0;i<localStorage.length;i++){
+        console.log(localStorage.getItem(i+1));
+        }
+    </script>
+</body>
+</html>
