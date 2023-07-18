@@ -32,22 +32,22 @@ const movesTaken = document.getElementById("movesTaken");
 const info1 = document.getElementById("info1");
 const info4 = document.getElementById("info4");
 const leaderBoard = document.getElementById("leaderBoard");
-const inputTag=document.getElementById("inputTag");
+// const inputTag=document.getElementById("inputTag");
 
-function createBoxes(n){
+function createBoxes(){
     let p=0;
-    for(i=0;i<n*n;i++){
+    for(i=0;i<9;i++){
     // p = document.createElement("div");
     // p.
     main.innerHTML+=`<div class="box" id="box${i}"></div>`;
     }
 }
 
-function start(n) {
+function start() {
     clearInterval(id);
     id = 0;
-    createBoxes(n);
-var box = document.getElementsByClassName("box");
+    // createBoxes(n);
+// var box = document.getElementsByClassName("box");
     main.style.display = "grid";
     winMain.style.display = "none";
     pause.style.display = "none";
@@ -57,15 +57,15 @@ var box = document.getElementsByClassName("box");
     info4.style.display = "block";
     arr = [1];
     arr.pop();
-    while (arr.length < (n*n)-1) {
+    while (arr.length < 9) {
         r = Math.random();
-        random = Math.floor(r * ((n*n)-1)) + 1;
+        random = Math.floor(r * (8)) + 1;
         if (!arr.includes(random)) {
             arr.push(random);
         }
     }
     b = Math.random();
-    blank = Math.floor(b * n*n);
+    blank = Math.floor(b * 9);
     arr.splice(blank, 0, " ");
     update();
     updateBlanck(blank);
@@ -76,8 +76,8 @@ var box = document.getElementsByClassName("box");
 }
 
 function updateBlanck(n) {
-    x = n % (arr.length);
-    y = Math.floor(n / (arr.length));
+    x = n % (3);
+    y = Math.floor(n / (3));
 }
 
 function update() {
@@ -90,9 +90,9 @@ function update() {
     // box6.innerHTML = `${arr[6]}`;
     // box7.innerHTML = `${arr[7]}`;
     // box8.innerHTML = `${arr[8]}`;
-var box = document.getElementsByClassName("box");
+// var box = document.getElementsByClassName("box");
 
-    for (i = 0; i < (arr.length)*(arr.length); i++) {
+    for (i = 0; i < (3)*(3); i++) {
         box[i].innerHTML = `${arr[i]}`;
     }
 }
@@ -104,16 +104,16 @@ function justexchange(a, b) {
 }
 function mirror() {
     var bl = 0;
-    for (let q = 0; q < arr.length; q++) {
-        for (let j = 0; j < arr.length; j++) {
+    for (let q = 0; q < 3; q++) {
+        for (let j = 0; j < 3; j++) {
             // f=3i+j;
             if (j > q) {
-                justexchange((arr.length) * q + j, (arr.length) * j + q);
+                justexchange((3) * q + j, (3) * j + q);
             }
         }
     }
     update();
-    for (let i = 0; i < (arr.length)*(arr.length); i++) {
+    for (let i = 0; i < (3)*(3); i++) {
         if (arr[i] == " ") {
             bl = i;
         }
@@ -180,19 +180,19 @@ function winCheck() {
 }
 
 function checkAdjacent(a) {
-    let x1 = a % (arr.length);
-    let y1 = Math.floor(a / (arr.length));
+    let x1 = a % (3);
+    let y1 = Math.floor(a / (3));
     if (((x1 - x == 1 || x1 - x == -1) && (y1 - y == 0)) ||((y1 - y == 1 || y1 - y == -1) && (x1 - x == 0)) ) {
         return 1;
     } else return 0;
 }
 
-start(3);
-for (let h = 0; h < (arr.length)*(arr.length); h++) {
+start();
+for (let h = 0; h < (3)*(3); h++) {
     function closure(index) {
         box[index].addEventListener("click", () => {
             if (checkAdjacent(index) == 1) {
-                exchange((arr.length) * y + x, index);
+                exchange((3) * y + x, index);
             }
         });
     }
@@ -290,7 +290,7 @@ for (let h = 0; h < (arr.length)*(arr.length); h++) {
 //     }
 // });
 playAgain.addEventListener("click", () => {
-    start(arr.length);
+    start();
 });
 pause.addEventListener("click", () => {
     clearInterval(id);
@@ -318,7 +318,7 @@ play.addEventListener("click", () => {
     info4.style.display ="block";
 });
 info1.addEventListener("click", () => {
-    start(inputTag.value);
+    start();
 });
 leaderBoard.addEventListener("click", () => {
     window.open("./leaderBoard.html", "_blank");
