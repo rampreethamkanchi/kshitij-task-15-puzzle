@@ -32,16 +32,17 @@ const movesTaken = document.getElementById("movesTaken");
 const info1 = document.getElementById("info1");
 const info4 = document.getElementById("info4");
 const leaderBoard = document.getElementById("leaderBoard");
+const box = document.getElementsByClassName('box');
 // const inputTag=document.getElementById("inputTag");
 
-function createBoxes(){
-    let p=0;
-    for(i=0;i<9;i++){
-    // p = document.createElement("div");
-    // p.
-    main.innerHTML+=`<div class="box" id="box${i}"></div>`;
-    }
-}
+// function createBoxes(){
+//     let p=0;
+//     for(i=0;i<9;i++){
+//     // p = document.createElement("div");
+//     // p.
+//     main.innerHTML+=`<div class="box" id="box${i}"></div>`;
+//     }
+// }
 
 function start() {
     clearInterval(id);
@@ -57,10 +58,10 @@ function start() {
     info4.style.display = "block";
     arr = [1];
     arr.pop();
-    while (arr.length < 9) {
+    while (arr.length < 8) {
         r = Math.random();
         random = Math.floor(r * (8)) + 1;
-        if (!arr.includes(random)) {
+        if (!(arr.includes(random))) {
             arr.push(random);
         }
     }
