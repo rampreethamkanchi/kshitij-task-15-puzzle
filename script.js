@@ -9,6 +9,9 @@ let arr = [1];
 arr.pop();
 let b = 0;
 let blank = 0;
+//please change const to user choice let later
+let size =3;
+let box=0;
 
 // const box0 = document.getElementById("box1");
 // const box1 = document.getElementById("box2");
@@ -32,22 +35,46 @@ const movesTaken = document.getElementById("movesTaken");
 const info1 = document.getElementById("info1");
 const info4 = document.getElementById("info4");
 const leaderBoard = document.getElementById("leaderBoard");
-const box = document.getElementsByClassName('box');
+const New = document.getElementById('New');
+const userInput  = document.getElementById("userInput");
+// const box = document.getElementsByClassName('box');
 // const inputTag=document.getElementById("inputTag");
 
-// function createBoxes(){
-//     let p=0;
-//     for(i=0;i<9;i++){
-//     // p = document.createElement("div");
-//     // p.
-//     main.innerHTML+=`<div class="box" id="box${i}"></div>`;
-//     }
-// }
+function createBoxes(){
+    let p=0;
+    main.innerHTML='';
+    for(i=0;i<size*size;i++){
+    // p = document.createElement("div");
+    // p.
+    main.innerHTML+=`<div class="box" id="box${i}"></div>`;
+    }
+    box = document.getElementsByClassName('box');
+    // console.log(Number(box[0].style.width));
+    main.style = ` 
+    width: calc(5vw + 380px);
+    margin: auto;
+    padding: 10px;
+    background-color: rgb(151, 97, 97);
+    display: grid;
+    column-gap: 1px;
+    row-gap: 3px;
+    grid-template-columns: repeat(${size},${100/(size)}%);
+    grid-template-rows: repeat(${size},calc((5vw + 360px)/${size}));
+
+    justify-content: space-around;
+    border-radius: 1rem;`;
+    // for(let i=0;i<size*size;i++){
+    //     box[i].style.width='10px';
+    //    console.log(box[i].style.width);
+    // }
+}
 
 function start() {
+    if(box!=0){
+}
     clearInterval(id);
     id = 0;
-    // createBoxes(n);
+    createBoxes();
 // var box = document.getElementsByClassName("box");
     main.style.display = "grid";
     winMain.style.display = "none";
@@ -58,15 +85,15 @@ function start() {
     info4.style.display = "block";
     arr = [1];
     arr.pop();
-    while (arr.length < 8) {
+    while (arr.length < (size*size)-1) {
         r = Math.random();
-        random = Math.floor(r * (8)) + 1;
+        random = Math.floor(r * ((size*size)-1)) + 1;
         if (!(arr.includes(random))) {
             arr.push(random);
         }
     }
     b = Math.random();
-    blank = Math.floor(b * 9);
+    blank = Math.floor(b * size*size);
     arr.splice(blank, 0, " ");
     update();
     updateBlanck(blank);
@@ -74,11 +101,22 @@ function start() {
     move.innerHTML = moves;
     timeafter = 0;
     time.innerHTML = "0:00";
+    for (let h = 0; h < size*size; h++) {
+        function closure(index) {
+            box[index].addEventListener("click", () => {
+                // please define size later
+                if (checkAdjacent(index) == 1) {
+                    exchange((size) * y + x, index);
+                }
+            });
+        }
+        closure(h);
+    }
 }
 
 function updateBlanck(n) {
-    x = n % (3);
-    y = Math.floor(n / (3));
+    x = n % (size);
+    y = Math.floor(n / (size));
 }
 
 function update() {
@@ -93,7 +131,7 @@ function update() {
     // box8.innerHTML = `${arr[8]}`;
 // var box = document.getElementsByClassName("box");
 
-    for (i = 0; i < (3)*(3); i++) {
+    for (i = 0; i < size*size; i++) {
         box[i].innerHTML = `${arr[i]}`;
     }
 }
@@ -105,16 +143,16 @@ function justexchange(a, b) {
 }
 function mirror() {
     var bl = 0;
-    for (let q = 0; q < 3; q++) {
-        for (let j = 0; j < 3; j++) {
+    for (let q = 0; q < size; q++) {
+        for (let j = 0; j < size; j++) {
             // f=3i+j;
             if (j > q) {
-                justexchange((3) * q + j, (3) * j + q);
+                justexchange((size) * q + j, (size) * j + q);
             }
         }
     }
     update();
-    for (let i = 0; i < (3)*(3); i++) {
+    for (let i = 0; i < size*size; i++) {
         if (arr[i] == " ") {
             bl = i;
         }
@@ -143,6 +181,7 @@ function exchange(a, b) {
     arr[a] = arr[b];
     arr[b] = t;
     update();
+    // please define size later
     updateBlanck(b);
     if (winCheck() == 1) {
         nofwin++;
@@ -181,24 +220,16 @@ function winCheck() {
 }
 
 function checkAdjacent(a) {
-    let x1 = a % (3);
-    let y1 = Math.floor(a / (3));
+    let x1 = a % (size);
+    let y1 = Math.floor(a / (size));
     if (((x1 - x == 1 || x1 - x == -1) && (y1 - y == 0)) ||((y1 - y == 1 || y1 - y == -1) && (x1 - x == 0)) ) {
         return 1;
     } else return 0;
 }
 
 start();
-for (let h = 0; h < (3)*(3); h++) {
-    function closure(index) {
-        box[index].addEventListener("click", () => {
-            if (checkAdjacent(index) == 1) {
-                exchange((3) * y + x, index);
-            }
-        });
-    }
-    closure(h);
-}
+//please define n as a global variable with user input value later
+
 
 // box0.addEventListener("click", () => {
 //     if (x == 0 && y == 1) {
@@ -291,6 +322,8 @@ for (let h = 0; h < (3)*(3); h++) {
 //     }
 // });
 playAgain.addEventListener("click", () => {
+    size=userInput.value;
+    console.log('size:', size) 
     start();
 });
 pause.addEventListener("click", () => {
@@ -318,7 +351,10 @@ play.addEventListener("click", () => {
     winMain.style.display = "none";
     info4.style.display ="block";
 });
-info1.addEventListener("click", () => {
+New.addEventListener("click", () => {
+    //please look logic to set size here later
+    size=userInput.value;
+    console.log('size:', size)
     start();
 });
 leaderBoard.addEventListener("click", () => {

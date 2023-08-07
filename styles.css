@@ -4,7 +4,7 @@ body{
     padding: 0px;
     background-image: url(https://static.vecteezy.com/system/resources/previews/007/455/514/original/light-green-low-poly-background-polygonal-design-pattern-bright-mosaic-modern-geometric-design-creative-design-templates-connected-lines-with-dots-free-vector.jpg);
 }
-#header,#info,#main,#regards,#footer,#play,#winMain,#pause,#pauseplay{
+#header,#info,#regards,#footer,#play,#winMain,#pause,#pauseplay{
     width: calc(5vw + 380px);
     margin: auto;
     padding: 10px;
@@ -25,19 +25,9 @@ body{
     font-size: calc(1.4rem + 0.1vw);
     font-weight: 600;
 }
-#main{
-    background-color: rgb(151, 97, 97);
-    display: grid;
-    column-gap: 10px;
-    row-gap: 30px;
-    grid-template-columns: repeat(3,25%);
-    /* grid-template-rows: repeat(3,100px) ; */
-    grid-template-rows: repeat(3,calc((5vw + 400px)/4.3));
 
-    justify-content: space-around;
-    /* align-items: center;  */
-    border-radius: 1rem;
-}
+
+
 #winMain{
     background-color: rgb(28, 28, 60);
     font-family: 'Courier New', Courier, monospace;
@@ -73,6 +63,7 @@ body{
     /* font-weight: bold;
     fontw */
     font-weight: 1000;
+    border: 2px solid  rgb(151, 97, 97);
 }
 #pause{
     background-color: blueviolet;
@@ -141,6 +132,13 @@ body{
     font-size: 1rem;
     /* cursor: pointer; */
     font-weight: 400;
+}
+#userInput{
+    width: 80%;
+    /* height: 30px; */
+    font-weight: bold;
+    font-size: 1.5rem;
+    text-align: center;
 }
 
 @media (max-width : 1500px){
